@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "286971668450",
+    "project_id": "mitmi-108c1",
+    "storage_bucket": "mitmi-108c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286971668450:android:9024a7d25b67240d2bfbbb",
+        "android_client_info": {
+          "package_name": "com.example.mitmi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286971668450-3042fl3t4ji4o6f8m2nl6ursae6aimub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBOuT1YcudtleYVLtJvbEUHJ9mHwwHtMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286971668450-3042fl3t4ji4o6f8m2nl6ursae6aimub.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "286971668450-6copefp3f3obtjh4p6epbon7gs3s4a31.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mitmi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
