@@ -22,7 +22,8 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         elevation: 1.0,
-        title: const Text("Nice to see you :)"),
+        title: const Text("sign in :)"),
+        actions: [],
       ),
       body: Container(
           padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -33,9 +34,9 @@ class _SignInState extends State<SignIn> {
                 height: 20.0,
               ),
               TextFormField(
-                onChanged: (val) {
+                onChanged: (eml) {
                   setState(() {
-                    email = val;
+                    email = eml;
                   });
                 },
               ),
@@ -44,9 +45,9 @@ class _SignInState extends State<SignIn> {
               ),
               TextFormField(
                 obscureText: true,
-                onChanged: (val) {
+                onChanged: (ps) {
                   setState(() {
-                    pass = val;
+                    pass = ps;
                   });
                 },
               ),
@@ -61,8 +62,8 @@ class _SignInState extends State<SignIn> {
                     print("Signed in");
                     print(result.uid);
                   }
-                  print(email);
-                  print(pass);
+                  print(email + " : email from sign_in");
+                  print(pass + " : pass from sign_in");
                 },
               )
             ],

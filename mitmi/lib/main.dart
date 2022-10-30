@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mitmi/models/theuser.dart';
 import 'package:mitmi/screens/wrapper.dart';
-import 'firebase_options.dart';
-import 'package:mitmi/screens/home/home.dart';
+import 'package:mitmi/services/auth.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Firebase.initializeApp();
-    return const MaterialApp(
-      home: Wrapper(),
+    return StreamProvider<TheUser?>.value(
+      value: AuthenticationAct().user,
+      initialData: null,
+      child: MaterialApp(
+        home: Wrapper(),
+      ),
     );
   }
 }
