@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mitmi/models/theuser.dart';
 
 class AuthenticationAct {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final userReference = FirebaseFirestore.instance.collection("Users");
+  final DateTime regTime = DateTime.now();
 
 // creating an user object that hold only its ID
 
@@ -18,18 +21,6 @@ class AuthenticationAct {
 
   Stream<TheUser?> get user {
     return _auth.authStateChanges().map(_userFromUser);
-  }
-
-// SIGN IN - ANON
-  Future anonSignIn() async {
-    try {
-      UserCredential result = await _auth.signInAnonymously();
-      User? user = result.user;
-      return _userFromUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
   }
 
 // SIGN IN: E-MAIL AND PASS
@@ -53,6 +44,13 @@ class AuthenticationAct {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
+      await FirebaseFirestore.instance.collection('Users').doc(user?.uid).set({
+        'email': email,
+        'username': '',
+        'id': user!.uid,
+        'date': regTime,
+        'photoUrl': user.photoURL,
+      });
       return _userFromUser(user);
     } catch (e) {
       print(e.toString());

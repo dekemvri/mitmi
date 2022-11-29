@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mitmi/screens/profile.dart';
 import 'package:mitmi/services/auth.dart';
+
+import '../search.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -11,16 +14,34 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.cyan,
       appBar: AppBar(
-        title: Text("mitmi"),
+        title: Text(
+          "Mitmi",
+          style: TextStyle(fontFamily: "Arvo", fontSize: 35),
+        ),
         backgroundColor: Colors.cyan[200],
         elevation: 0,
         actions: [
-          TextButton.icon(
-              onPressed: () async {
-                await _auth.signOut();
+          IconButton(
+            onPressed: () => {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Profile()))
+            },
+            icon: Icon(Icons.account_box_outlined),
+            alignment: Alignment.center,
+          ),
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Search()));
               },
-              label: Text("Logout"),
-              icon: Icon(Icons.person_2))
+              icon: Icon(Icons.saved_search),
+              alignment: Alignment.center),
+          // IconButton(
+          //   onPressed: () async {
+          //     await _auth.signOut();
+          //   },
+          //   icon: Icon(Icons.logout),
+          // ),
         ],
       ),
     );

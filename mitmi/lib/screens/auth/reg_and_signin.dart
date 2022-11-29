@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mitmi/loading.dart';
-
 import '../../services/auth.dart';
+import '../profile.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -47,7 +47,7 @@ class _RegisterState extends State<Register> {
                             return null;
                           }
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "E-mail",
                           fillColor: Colors.white,
                           filled: true,
@@ -79,7 +79,7 @@ class _RegisterState extends State<Register> {
                             return null;
                           }
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Password",
                           fillColor: Colors.white,
                           filled: true,
