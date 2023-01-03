@@ -9,7 +9,7 @@ class AuthenticationAct {
 
 // creating an user object that hold only its ID
 
-  TheUser? _userFromUser(User? user) {
+  TheUser? userOnlyId(User? user) {
     if (user != null) {
       return TheUser(uid: user.uid);
     } else {
@@ -20,8 +20,10 @@ class AuthenticationAct {
 // Setting up STREAM, yeyyyyy
 
   Stream<TheUser?> get user {
-    return _auth.authStateChanges().map(_userFromUser);
+    return _auth.authStateChanges().map(userOnlyId);
   }
+
+// LOGIN: GOOGLE ACC
 
 // SIGN IN: E-MAIL AND PASS
 
@@ -30,7 +32,7 @@ class AuthenticationAct {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      return _userFromUser(user);
+      return userOnlyId(user);
     } catch (e) {
       print(e.toString());
       return null;
@@ -51,7 +53,7 @@ class AuthenticationAct {
         'date': regTime,
         'photoUrl': user.photoURL,
       });
-      return _userFromUser(user);
+      return userOnlyId(user);
     } catch (e) {
       print(e.toString());
       return null;

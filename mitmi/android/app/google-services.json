@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "286971668450-3h3g2fc2thfabspgt5lfi2d9vggl817j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mitmi",
+            "certificate_hash": "c039bc7ba8631ed59a54d3346936b57974bdf683"
+          }
+        },
+        {
           "client_id": "286971668450-3042fl3t4ji4o6f8m2nl6ursae6aimub.apps.googleusercontent.com",
           "client_type": 3
         }

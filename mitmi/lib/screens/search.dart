@@ -15,17 +15,20 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   TextEditingController textControl = TextEditingController();
   Future<QuerySnapshot>? finalSearchrResult;
-  handleSearching(String typing) {
-    Future<QuerySnapshot> friends = FirebaseFirestore.instance
-        .collection("Users")
-        .where("username", isGreaterThanOrEqualTo: typing)
+
+  final usersInstance = FirebaseFirestore.instance.collection("Users");
+
+  handleSearching(String typeInSearchBar) {
+    Future<QuerySnapshot> friends = usersInstance
+        .where("username", isGreaterThanOrEqualTo: typeInSearchBar)
         .get();
+
     setState(() {
       finalSearchrResult = friends;
     });
   }
 
-  wipeLetters() {
+  clear() {
     return textControl.clear();
   }
 
@@ -34,21 +37,15 @@ class _SearchState extends State<Search> {
       backgroundColor: Colors.white,
       title: TextFormField(
         controller: textControl,
-        onChanged: (typeInSearchBar) {
-          setState(() {
-            var searchText = typeInSearchBar;
-          });
-          handleSearching(typeInSearchBar);
-        },
         decoration: InputDecoration(
-          hintText: "Find your friends",
+          hintText: "Find friends",
           filled: true,
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.account_box,
             size: 28.0,
           ),
           suffixIcon: IconButton(
-            icon: Icon(Icons.clear), iconSize: 28.0, onPressed: wipeLetters,
+            icon: const Icon(Icons.clear), iconSize: 28.0, onPressed: clear,
 
             // I'm going to use this little code later
             //  () {
@@ -63,14 +60,9 @@ class _SearchState extends State<Search> {
   }
 
 // The screen if it has no content to show
-  Container noContent() {
-    return Container(
-      child: Center(
-        child: Text(
-          "Search...",
-          style: TextStyle(fontSize: 50.0, color: Colors.black12),
-        ),
-      ),
+  Center noContent() {
+    return Center(
+      child: Image.asset('assets/images/LOGO-TRANS-SMALL.png'),
     );
   }
 
@@ -80,12 +72,14 @@ class _SearchState extends State<Search> {
       future: finalSearchrResult,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Loading();
+          return const Loading();
         }
-        List<Text> findings = [];
+        List<UserResults> findings = [];
         snapshot.data?.docs.forEach((doc) {
-          UserModel users = UserModel.fromDocument(doc);
-          findings.add(Text(users.username));
+          UserModel users = UserModel.fromDocument(
+              doc as DocumentSnapshot<Map<String, dynamic>>?);
+          UserResults userResult = UserResults(users);
+          findings.add(userResult);
         });
         return ListView(
           children: findings,
@@ -103,11 +97,43 @@ class _SearchState extends State<Search> {
   }
 }
 
-class UserResult extends StatelessWidget {
-  const UserResult({super.key});
+class UserResults extends StatelessWidget {
+  final UserModel user;
+  const UserResults(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.amber,
+      // Custom Theme here
+      child: Column(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () => print("tapped"),
+            child: ListTile(
+              leading: const CircleAvatar(
+                backgroundColor: Colors.grey,
+                // Avatar:
+                // backgroundImage: CachedNetworkImageProvider(),
+              ),
+              title: Text(
+                user.username,
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              // Something else; not the email; real name
+              subtitle: Text(
+                user.email,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          const Divider(
+            height: 5.0,
+            color: Colors.white54,
+          ),
+        ],
+      ),
+    );
   }
 }

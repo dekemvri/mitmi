@@ -36,12 +36,12 @@ class Home extends StatelessWidget {
               },
               icon: Icon(Icons.saved_search),
               alignment: Alignment.center),
-          // IconButton(
-          //   onPressed: () async {
-          //     await _auth.signOut();
-          //   },
-          //   icon: Icon(Icons.logout),
-          // ),
+          IconButton(
+            onPressed: () async {
+              await _auth.signOut();
+            },
+            icon: Icon(Icons.logout),
+          ),
         ],
       ),
     );
